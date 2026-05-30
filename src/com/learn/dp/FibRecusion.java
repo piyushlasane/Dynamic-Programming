@@ -4,26 +4,27 @@ import java.util.Arrays;
 
 public class FibRecusion {
     public static void main(String[] args) {
-        System.out.println(getNthFibonacci(10));
-        int[] dp = new int[11];
-        Arrays.fill(dp, -1);
-        System.out.println(getNthFibByMemo(10, dp));
+        int n = 48;
+        long[] dp = new long[n + 1];
         dp[0] = 0; dp[1] = 1;
-        System.out.println(getNthFibByTab(10, dp));
+        System.out.println(getNthFibByTab(n, dp));
+        Arrays.fill(dp, -1);
+        System.out.println(getNthFibByMemo(n, dp));
+        System.out.println(getNthFibonacci(n));
     }
 
-    private static int getNthFibonacci(int n) {
+    private static long getNthFibonacci(int n) {
         if (n <= 1) return n;
         return getNthFibonacci(n - 1) + getNthFibonacci(n - 2);
     }
 
-    private static int getNthFibByMemo(int n, int[] dp) {
+    private static long getNthFibByMemo(int n, long[] dp) {
         if (n <= 1) return n;
         if (dp[n] != -1) return dp[n];
         return getNthFibByMemo(n - 1, dp) + getNthFibByMemo(n - 2, dp);
     }
 
-    private static int getNthFibByTab(int n, int[] dp) {
+    private static long getNthFibByTab(int n, long[] dp) {
         for (int i = 2; i <= n; i++) {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
