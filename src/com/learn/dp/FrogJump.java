@@ -5,12 +5,13 @@ import java.util.Arrays;
 public class FrogJump {
     private static int[] arr = {30, 10, 60, 10, 60, 50};
     public static void main(String[] args) {
+        System.out.println((minBySO(6)));
+        int[] dpn = new int[6];
+        System.out.println(minByTab(6, dpn));
         int[] dp = new int[6];
         Arrays.fill(dp, -1);
         System.out.println(minByMemo(5, dp));
         System.out.println(minByRec(5));
-        int[] dpn = new int[6];
-        System.out.println(minByTab(6, dpn));
     }
 
     private static int minByRec(int i) {
@@ -38,5 +39,18 @@ public class FrogJump {
             dp[i] = Math.min(fs, ss);
         }
         return dp[n-1];
+    }
+
+    private static int minBySO(int n) {
+        int prev = 0, prev2 = 0;
+        for (int i = 1; i < n; i++) { // 3,  4,  5
+            int fs = prev + Math.abs(arr[i] - arr[i-1]); // 20, 20+50, 30+50, 20+50, 30+10
+            int ss = Integer.MAX_VALUE;
+            if(i>1) ss = prev2 + Math.abs(arr[i] - arr[i-2]); // 0+30, 20+0, 30+0, 20+40
+            int curi = Math.min(fs, ss); // 20 , 30,  20, 30, 40
+            prev2 = prev; // 20, 30, 20, 30
+            prev = curi; // 30, 20, 30, 40
+        }
+        return prev;
     }
 }

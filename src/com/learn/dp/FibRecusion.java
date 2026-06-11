@@ -4,9 +4,10 @@ import java.util.Arrays;
 
 public class FibRecusion {
     public static void main(String[] args) {
-        int n = 48;
+        int n = 43;
         long[] dp = new long[n + 1];
         dp[0] = 0; dp[1] = 1;
+        System.out.println(getNthBySO(n));
         System.out.println(getNthFibByTab(n, dp));
         Arrays.fill(dp, -1);
         System.out.println(getNthFibByMemo(n, dp));
@@ -30,6 +31,17 @@ public class FibRecusion {
         }
         return dp[n];
     }
+
+    private static long getNthBySO(int n) {
+        long first = 0, second = 1;
+        for (int i = 0; i < n; i++) {
+            long third = first + second;
+            first = second;
+            second = third;
+        }
+        return first;
+    }
+
 }
 
  // 0 1 1 2 3 5 8 13 21
