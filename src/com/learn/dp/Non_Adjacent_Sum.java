@@ -6,6 +6,7 @@ public class Non_Adjacent_Sum {
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,9,8,7,6,5,9,0,4,3,5,6,1,5,5,2,3,6,9,5,8,2,5,1,5,2,3,6,2,5,3,3,2,6,3,2,6,3,2};
         int[] ndp = new int[arr.length];
+        System.out.println(maxBySO(arr, arr.length, ndp));
         System.out.println(maxByTab(arr, arr.length, ndp));
         int[] dp = new int[arr.length];
         Arrays.fill(dp, -1);
@@ -41,5 +42,20 @@ public class Non_Adjacent_Sum {
                 dp[i] = Math.max(pick, notPick);
         }
         return dp[n - 1];
+    }
+
+    private static int maxBySO(int[] arr, int n, int[] dp) {
+        int prev = arr[0], prev2 = 0;
+        for (int i = 1; i < n; i++) {
+            int pick = Integer.MIN_VALUE;
+            if (i > 1) {
+                pick = arr[i] + prev2;
+            }
+            int notPick = prev;
+            int curi = Math.max(pick, notPick);
+            prev2 = prev;
+            prev = curi;
+        }
+        return prev;
     }
 }
